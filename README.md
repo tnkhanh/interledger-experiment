@@ -1,5 +1,4 @@
-# interledger-experiment
-Experiment on Interledger
+# Experiment on Interledger
 
 Nodes run in docker. Make sure you have permission, best is adding your username to docker group.
 - Run with
