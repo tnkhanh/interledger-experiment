@@ -52,19 +52,19 @@ def amount_experiment():
     plt.show()
 
 
-command = alice_cli + " pay alice --auth alice_password --amount 200000 --to http://charlie-node:7770/accounts/charlie/spsp"
+command = alice_cli + " pay alice --auth alice_password --amount 20000 --to http://charlie-node:7770/accounts/charlie/spsp"
 
 def th():
-    subprocess.call(command, shell=True)#, stdout=subprocess.DEVNULL)
+    subprocess.call(command, shell=True, stdout=subprocess.DEVNULL)
 
-def latency_experiment():
-    N = 5
+def throughput_experiment():
+    N = 50 
     times = np.zeros(N)
 
     f = open("threads_report.txt", "w")
     for i in range(N):
         threads = []
-        for j in range(N):
+        for j in range(i + 1):
             threads.append(Thread(target=th))
 
         start_time = time.time()
@@ -93,10 +93,11 @@ def latency_experiment():
     plt.xlabel("Threads")
     plt.ylabel("Time(s)")
     plt.title("ETC-XRP trading in Interledger")
+    plt.savefig("interledger.png", bbox_inches="tight")
     plt.show()
 
 if __name__ == "__main__":
-    amount_experiment()
+    throughput_experiment()
 
 #    info = resource.getrusage(resource.RUSAGE_CHILDREN)
 #    print("real " + str(elapsed))
